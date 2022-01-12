@@ -15,7 +15,7 @@ qu'en version PDF.
 [![made-with-python](
 https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](
 https://www.python.org/)
-[![Python badge](https://img.shields.io/badge/Python->=3.9-blue.svg)](
+[![Python badge](https://img.shields.io/badge/Python->=3.9.9-blue.svg)](
 https://www.python.org/)
 ***
 ## Clonage du Repository :
