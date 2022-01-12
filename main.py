@@ -1,6 +1,6 @@
-from Projet.views.view import TournoiView
-from Projet.views.view_rapports import RapportsView
-from Projet.controllers.base import Controller
+from views.view import TournoiView
+from views.view_rapports import RapportsView
+from controllers import Controller
 
 
 def main():
