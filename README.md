@@ -61,7 +61,7 @@ en effet, le programme dispose d'une interface dans le terminal.
  ###Génération Rapport Flake8
 
 Après avoir activé l'environnement virtuel, entrez la commande suivante :
-```shell
+
 flake8 --format=html --htmldir=flake_rapport
 ```
 Un rapport sera généré dans le dossier "flake_rapport", avec comme argument 
