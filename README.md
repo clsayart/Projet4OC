@@ -55,6 +55,10 @@ dossier OCR_P4
 python3 main.py 
 ````
 Cette commande produit le resultat suivant : 
+
+"----------Tournoi----------"
+1. Start Tournoi - Please enter 1"
+2. View Rapports - Please enter 2"
 en effet, le programme dispose d'une interface dans le terminal. 
 
 ```shell
