@@ -5,11 +5,3 @@ class Player:
         self.date_of_birth = date_of_birth
         self.sex = sex
         self.rank = rank
-
-
-
-
-
-
-
-

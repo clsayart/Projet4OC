@@ -5,5 +5,3 @@ class Match:
         self.player2 = player2
         self.score_player1 = score_player1
         self.score_player2 = score_player2
-
-

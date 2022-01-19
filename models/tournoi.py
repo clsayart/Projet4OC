@@ -1,7 +1,6 @@
 class Tournoi:
-    def __init__(self, nom, lieu, date_tournoi, controle_temps, description, rounds=[], players=[], nombre_de_tours=4
-
-                 ):
+    def __init__(self, nom, lieu, date_tournoi, controle_temps, description,
+                 rounds=[], players=[], nombre_de_tours=4):
         self.nom = nom
         self.lieu = lieu
         self.date_tournoi = date_tournoi
@@ -10,4 +9,3 @@ class Tournoi:
         self.players = players
         self.controle_temps = controle_temps
         self.description = description
-

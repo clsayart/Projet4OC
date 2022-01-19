@@ -140,7 +140,8 @@ class RapportsView:
             for player in sorted_players:
                 print('Prenom : ' + str(player['first_name']) + '\n' +
                       'Nom : ' + str(player['last_name']) + '\n' +
-                      'Date de naissance : ' + str(player['date_of_birth']) + '\n' +
+                      'Date de naissance : ' + str(player['date_of_birth']) +
+                      '\n' +
                       'Sexe : ' + str(player['sex']) + '\n' +
                       'Classement : ' + str(player['rank']) + '\n')
         elif int(choice) == 2:
@@ -149,7 +150,8 @@ class RapportsView:
             for player in sorted_players:
                 print('Prenom : ' + str(player['first_name']) + '\n' +
                       'Nom : ' + str(player['last_name']) + '\n' +
-                      'Date de naissance : ' + str(player['date_of_birth']) + '\n' +
+                      'Date de naissance : ' + str(player['date_of_birth']) +
+                      '\n' +
                       'Sexe : ' + str(player['sex']) + '\n' +
                       'Classement : ' + str(player['rank']) + '\n')
 
@@ -168,17 +170,22 @@ class RapportsView:
                                                  key=lambda key: key['rank'])
                     for player in sorted_players_here:
                         print('Prenom : ' + str(player['first_name']) + '\n' +
-                              'Nom de Famille : ' + str(player['last_name']) + '\n' +
-                              'Date de naissance : ' + str(player['date_of_birth']) + '\n' +
+                              'Nom de Famille : ' + str(player['last_name']) +
+                              '\n' +
+                              'Date de naissance : ' +
+                              str(player['date_of_birth']) + '\n' +
                               'Sexe : ' + str(player['sex']) + '\n' +
                               'Rank : ' + str(player['rank']) + '\n')
                 elif int(second_choice) == 2:
                     sorted_players_here = sorted(tournoi['players'],
-                                                 key=lambda key: key['first_name'])
+                                                 key=lambda
+                                                 key: key['first_name'])
                     for player in sorted_players_here:
                         print('Prenom : ' + str(player['first_name']) + '\n' +
-                              'Nom de Famille : ' + str(player['last_name']) + '\n' +
-                              'Date de naissance : ' + str(player['date']) + '\n' +
+                              'Nom de Famille : ' +
+                              str(player['last_name']) + '\n' +
+                              'Date de naissance : ' +
+                              str(player['date']) + '\n' +
                               'Sexe : ' + str(player['sex']) + '\n' +
                               'Rank : ' + str(player['rank']) + '\n')
 
@@ -197,7 +204,8 @@ class RapportsView:
                 print('Player ' + str(player_index) + '\n' +
                       'Prénom : ' + str(player['first_name']) + '\n' +
                       'Nom : ' + str(player['last_name']) + '\n' +
-                      'Date de naissance : ' + str(player['date_of_birth']) + '\n' +
+                      'Date de naissance : ' +
+                      str(player['date_of_birth']) + '\n' +
                       'Sexe : ' + str(player['sex']) + '\n' +
                       'Rank : ' + str(player['rank']) + '\n')
                 player_index += 1
@@ -239,8 +247,10 @@ class RapportsView:
                         print('Match ' + str(match_index) + '\n' +
                               'Player 1 : ' + str(match['player 1']) + '\n' +
                               'Player 2 : ' + str(match['player 2']) + '\n' +
-                              'Score 1 : ' + str(match['score player 1']) + '\n' +
-                              'Score 2 : ' + str(match['score player 2']) + '\n')
+                              'Score 1 : ' +
+                              str(match['score player 1']) + '\n' +
+                              'Score 2 : ' +
+                              str(match['score player 2']) + '\n')
                         match_index += 1
 
     def list_matches_tournois(self):
@@ -258,6 +268,8 @@ class RapportsView:
                         print('Match ' + str(match_index) + '\n' +
                               'Player 1 : ' + str(match['player 1']) + '\n' +
                               'Player 2 : ' + str(match['player 2']) + '\n' +
-                              'Score 1 : ' + str(match['score player 1']) + '\n' +
-                              'Score 2 : ' + str(match['score player 2']) + '\n')
+                              'Score 1 : ' +
+                              str(match['score player 1']) + '\n' +
+                              'Score 2 : ' +
+                              str(match['score player 2']) + '\n')
                         match_index += 1

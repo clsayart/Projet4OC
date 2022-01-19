@@ -63,6 +63,9 @@ en effet, le programme dispose d'une interface dans le terminal.
 Après avoir activé l'environnement virtuel, entrez la commande suivante :
 
 flake8 --format=html --htmldir=flake_rapport
+
+flake8 --format=html --htmldir=flake_rapport --exclude venv
+
 ```
 Un rapport sera généré dans le dossier "flake_rapport", avec comme argument 
 "max-line-length" défini par défaut à 79 caractères par ligne si non précisé.
