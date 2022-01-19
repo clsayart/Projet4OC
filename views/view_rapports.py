@@ -22,14 +22,13 @@ def serialize_player(players):
             'rank': player.rank
         }
         serialized_players.append(serialized_player)
-    print("players tiny db", serialized_players)
+    # print("players tiny db", serialized_players)
     return serialized_players
 
 
 def serialize_match(matches):
     serialized_matches = []
     for match in matches:
-        print("match.player1 first name", match.player1.first_name)
         serialized_match = {
             "player 1": match.player1.first_name,
             "player 2": match.player2.first_name,
@@ -83,6 +82,27 @@ def insert_tournoi(serialized_tournoi):
 def insert_matches(serialized_matches):
     # tournois_table.truncate()  # ?
     matches_table.insert_multiple(serialized_matches)
+
+
+def saving_round(round, serialized_matches):
+    saving = input("Sauvegarder le round ? Entrez 1 pour sauvegarder: ")
+    if int(saving) == 1:
+        serialized_round = serialize_round(round, serialized_matches)
+        pass
+    else:
+        pass
+    return serialized_round
+
+
+def saving_players(players):
+    serialized_players = []
+    saving = input("Sauvegarder les joueurs? Entrez 1 pour sauvegarder: ")
+    if int(saving) == 1:
+        serialized_players = serialize_player(players)
+        pass
+    else:
+        pass
+    return serialized_players
 
 
 class RapportsView:

@@ -19,7 +19,7 @@ class TournoiView:
         sex = input("Entrez le sexe du Player: ")
         if not (last_name, first_name, date_of_birth, sex):
             return None
-        print("variables", last_name, first_name, date_of_birth, sex)
+        # print("variables", last_name, first_name, date_of_birth, sex)
         return last_name, first_name, date_of_birth, sex
 
     def menu(self):
@@ -29,12 +29,12 @@ class TournoiView:
         choice = input("please enter your choice: ")
         return choice
 
-    def tournoi_commence(self):
-        print("tournoi commencé")
-        print("1. Afficher rapports souhaités")
-        print("2. Continuer")
-        choice_menu = input("please enter your choice: ")
-        return choice_menu
+    # def tournoi_commence(self):
+    #     print("tournoi commencé!")
+    #     print("1. Afficher rapports souhaités")
+    #     print("2. Continuer")
+    #     choice_menu = input("please enter your choice: ")
+    #     return choice_menu
 
     def prompt_for_round(self):
         name_round = input("Entrez le nom du Round: ")
@@ -44,30 +44,16 @@ class TournoiView:
 
     def generate_pairs_first_round(self, players):
         players_sorted = sorted(players, key=lambda player: player.rank)
-        print("players sorted", players_sorted)
-        print("len(players_sorted)",len(players_sorted))
+        # print("players sorted", players_sorted)
         len_int = int(len(players_sorted) / 2)
-        # len_int = len(players_sorted) // 2
         split1 = players_sorted[:len_int]
         split2 = players_sorted[len_int:]
-        print("splits", split1[0].first_name, split2)
+        # print("splits", split1[0].first_name, split2)
         pairs = []
 
-        print(len(split1))
-        #for i in (0, len(split1) - 1):
         for i in range(4):
-            pair = []
-            print('split i', split1[i].first_name)
-            pair.append(split1[i])
-            pair.append(split2[i])
-            print("pair1", pair)
+            pair = [split1[i], split2[i]]
             pairs.append(pair)
-            print("pairs1", pairs)
-        print("pairs", pairs)
-
-        # for element in split1:
-        #   pair = [element, split2[split1.index(element)]]
-        #  pairs.append(pair)
 
         matches = list()
         for pair in pairs:
@@ -75,9 +61,7 @@ class TournoiView:
             score_player1 = input("Score P1: ")
             score_player2 = input("Score P2: ")
             match = Match(pair[0], pair[1], score_player1, score_player2)
-            print("HEERE", pair[0])
             matches.append(match)
-        print("matches view", matches)
         return matches
 
     def set_ranking(self, players):
@@ -89,34 +73,31 @@ class TournoiView:
             ranking.append([player, float(score)])
         sorted_rank = sorted(ranking, key=lambda key_score: key_score[1],
                              reverse=True)
-        print("ranking", ranking)
-        print('sorted rank', sorted_rank)
+        # print('sorted rank', sorted_rank)
         print("Classement des joueurs :")
         i = 1
         for rank in sorted_rank:
             print("Classé " + str(i) + " : " + rank[0].first_name +
                   " avec " + str(rank[1]) + " pts")
             i += 1
-        #return ranking
-        return sorted_rank
 
+        return sorted_rank
 
     def generate_pairs_second_round(self, ranking):
         matches = []
-        print(ranking[0][0].first_name, ranking[1][0].first_name, ranking[2][0].first_name, ranking[3][0].first_name)
+        # print(ranking[0][0].first_name, ranking[1][0].first_name, ranking[2][0].first_name, ranking[3][0].first_name)
         print(str(ranking[0][0].first_name)
               + ' VS ' + str(ranking[2][0].first_name))
         score_p1 = input("Score P1: ")
         score_p2 = input("Score P2: ")
-        print("gen pair 2nd r m 1", ranking[0][0], ranking[2][0], score_p1, score_p2)
+        # print("gen pair 2nd r m 1", ranking[0][0], ranking[2][0], score_p1, score_p2)
         matches.append(Match(ranking[0][0], ranking[2][0], score_p1, score_p2))
-        print("matches after first append", matches[0])
 
         print(str(ranking[1][0].first_name)
               + ' VS ' + str(ranking[3][0].first_name))
         score_p1 = input("Score P1: ")
         score_p2 = input("Score P2: ")
-        print("gen pair 2nd r m 2", ranking[1][0], ranking[3][0], score_p1, score_p2)
+        #print("gen pair 2nd r m 2", ranking[1][0], ranking[3][0], score_p1, score_p2)
         matches.append(Match(ranking[1][0], ranking[3][0], score_p1, score_p2))
         print(str(ranking[4][0].first_name)
               + ' VS ' + str(ranking[5][0].first_name))
@@ -131,7 +112,6 @@ class TournoiView:
         return matches
 
     def generate_pairs(self, ranking, previous_ranking):
-
         if previous_ranking[0][0].first_name == ranking[0][0].first_name \
                 and previous_ranking[1][0].first_name == ranking[1][0].first_name:
             matches = self.generate_pairs_second_round(ranking)
@@ -156,6 +136,17 @@ class TournoiView:
             matches.append(Match(ranking[6][0], ranking[7][0], score_p1, score_p2))
             return matches
 
+    def end_tournoi(self, tournoi, players):
+        print("Terminer ?\n1. Terminer\n2.Modifier classement joueurs")
+        text = input("Votre choix : ")
+        if int(text) == 1:
+            print("Tournoi Terminé")
+            pass
+        elif int(text) == 2:
+            players = self.final_players_ranking(players)
+            tournoi.players = players
+            print("Tournoi Terminé")
+            pass
 
     def final_players_ranking(self, players):
         for player in players:
@@ -163,10 +154,3 @@ class TournoiView:
             rank = input("Entrez le classement final : ")
             player.rank = int(rank)
         return players
-
-
-
-
-
-
-
