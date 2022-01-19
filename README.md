@@ -4,12 +4,10 @@
 ## Présentation
 
 
-A été demandé, la réalisation d'un logiciel permettant de réaliser un tournoi,
-dans un club d'échec, entre huits joueurs avec la réalisation de quatres tours
+A été demandé, la réalisation d'un logiciel permettant de réaliser un tournoi d'échec, entre huits joueurs avec la réalisation de quatres tours
 de jeu pour déterminer le gagnant du tournoi.
-L'utilisateur peut inscrire les joueurs dans une base de données, générer les
-quatres tours de jeu, et exporter différents résultats dans la console ainsi
-qu'en version PDF.
+L'utilisateur peut inscrire les joueurs dans une base de données (tinydb), générer les
+quatres tours de jeu, et exporter différents résultats dans la console
 ***
 ## Prérequis : 
 [![made-with-python](
