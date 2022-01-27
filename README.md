@@ -33,7 +33,7 @@ source [nom_de_votre_environnement_virtuel]/bin/activate
 ````
 ### Windows
 ````shell
-source .\[nom_de_votre_environnement_virtuel]\Scripts\activate
+[nom_de_votre_environnement_virtuel]\Scripts\activate
 ````
 
 Aller dans le dossier OCR_P4 contenant les fichiers
