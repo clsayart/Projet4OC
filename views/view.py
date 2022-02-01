@@ -14,6 +14,12 @@ class TournoiView:
             return None
         return name, lieu, date_tournoi, controle_temps, description
 
+    def prompt_for_tournoi_name(self):
+        name = input("Entrez le nom du Tournoi que vous souhaitez reprendre: ")
+        if not name:
+            return None
+        return name
+
     def prompt_for_player(self):
         last_name = input("Entrez le nom de famille du Player: ")
         first_name = input("Entrez le prénom du Player: ")
@@ -25,8 +31,9 @@ class TournoiView:
 
     def menu(self):
         print("----------Tournoi---------\n")
-        print("1. Start Tournoi - Please enter 1")
-        print("2. View Rapports - Please enter 2")
+        print("1. Commencer Tournoi - Entrez 1")
+        print("2. Voir Rapports - Entrez 2")
+        print("3. Continuer précédent Tournoi - Entrez 3")
         choice = input("please enter your choice: ")
         return choice
 

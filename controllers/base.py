@@ -29,6 +29,8 @@ class Controller:
         result_menu = self.view_tournoi.menu()
         if result_menu == "1":
             self.start_tournoi()
+        elif result_menu == "2":
+            self.continue_tournoi()
         else:
             self.rapports_tournoi.print_rapports()
 
@@ -117,3 +119,7 @@ class Controller:
             sorted_players.rank = sorted_ranking[1]
         print('sorted players fin', sorted_players)
         return sorted_players
+
+    def continue_tournoi(self):
+        tournoi_to_continue = self.view_tournoi.prompt_for_tournoi_name()
+        print(tournoi_to_continue)

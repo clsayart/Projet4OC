@@ -273,3 +273,5 @@ class RapportsView:
                               'Score 2 : ' +
                               str(match['score player 2']) + '\n')
                         match_index += 1
+
+
