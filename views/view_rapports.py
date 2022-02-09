@@ -6,9 +6,9 @@ players_table = db.table('players')
 players = players_table.all()
 tournois_table = db.table('tournois')
 tournois = tournois_table.all()
-rounds_table = db.table('rounds')
-matches_table = db.table('matches')
-Q_Player = Query()
+# rounds_table = db.table('rounds')
+# matches_table = db.table('matches')
+Tournoi = Query()
 
 
 def serialize_player(players):
@@ -64,14 +64,32 @@ def serialize_tournoi(tournoi, serialized_players, serialized_rounds):
     return serialized_tournoi
 
 
+def serialize_tournoi_start(tournoi):
+    serialized_tournoi = {
+        'nom': tournoi.nom,
+        'lieu': tournoi.lieu,
+        'date_tournoi': tournoi.date_tournoi,
+        'rounds': tournoi.rounds,
+        'players': tournoi.players,
+        'nombre_de_tours': tournoi.nombre_de_tours,
+        'controle_temps': tournoi.controle_temps,
+        'description': tournoi.description
+    }
+    return serialized_tournoi
+
+
 def insert_players(serialized_players):
     # players_table = db.table('players')
     # players_table.truncate()  # clear the table first
     players_table.insert_multiple(serialized_players)
 
 
-def insert_rounds(serialized_round):
-    rounds_table.insert(serialized_round)
+# def insert_rounds(serialized_round):
+#     rounds_table.insert(serialized_round)
+
+def remove_tournoi(tournoi_name):
+    print("tournoi_name", tournoi_name)
+    tournois_table.remove(Tournoi.nom == tournoi_name)
 
 
 def insert_tournoi(serialized_tournoi):
@@ -79,9 +97,9 @@ def insert_tournoi(serialized_tournoi):
     tournois_table.insert(serialized_tournoi)
 
 
-def insert_matches(serialized_matches):
-    # tournois_table.truncate()  # ?
-    matches_table.insert_multiple(serialized_matches)
+# def insert_matches(serialized_matches):
+#     # tournois_table.truncate()  # ?
+#     matches_table.insert_multiple(serialized_matches)
 
 
 def saving_round(round, serialized_matches):
@@ -179,7 +197,7 @@ class RapportsView:
                 elif int(second_choice) == 2:
                     sorted_players_here = sorted(tournoi['players'],
                                                  key=lambda
-                                                 key: key['first_name'])
+                                                     key: key['first_name'])
                     for player in sorted_players_here:
                         print('Prenom : ' + str(player['first_name']) + '\n' +
                               'Nom de Famille : ' +
@@ -273,5 +291,59 @@ class RapportsView:
                               'Score 2 : ' +
                               str(match['score player 2']) + '\n')
                         match_index += 1
+
+    def find_tournoi_to_continue(self):
+        choice = input("Entrez le nom du tournoi que vous souhaitez reprendre: ")
+        for tournoi in tournois:
+            if choice == str(tournoi['nom']):
+                print("nom tournoi", tournoi['nom'])
+
+        nom = tournoi['nom']
+        lieu = tournoi['lieu']
+        date_tournoi = tournoi['date_tournoi']
+        controle_temps = tournoi['description']
+        nombre_de_tours = tournoi['nombre_de_tours']
+        controle_temps = tournoi['controle_temps']
+        description= tournoi['description']
+        players = []
+        # for player in tournoi['players']:
+        #     first_name = player['first_name'
+        #          last_name = player['last_name']
+        #
+        #    date_of_birth = player['date_of_birth']
+        #           sex = player['sex']
+        #           rank = player['rank']
+        #player =Player(last_name=last_name, first_name=first_name, date_of_birth=date_of_birth, sex=sex, rank=rank)
+        # players.append(player)
+
+
+        # rounds = []
+        # for round in tournoi['rounds']:
+        # nom = round['nom']
+        #         date= round['date']
+        #         heure_debut = round['heure de debut']
+        #         heure_fin = round['heure de debut']
+        #         matches = []
+        #         for match in round['liste des matchs']:
+        # player1 = match['player 1']
+        # player2 = match['player 2']
+        # score_player1 = match['score player 1']
+        #  score_player2 = match['score player 2']
+        # match = Match(player1=player1, player2=player2, score_player1=score_player1, score_player2n=score_player2)
+        # matches.append(match)
+        #         round = Round(nom=nom, date=date, heure_debut=heure_debut, heure_fin=heure_fin, list_matchs=matches)
+        #  rounds.append(round)
+
+        #tournoi_object = Tournoi(nom=nom, lieu=lieu, date_tournoi=date_tournoi, controle_temps=controle_temps, description=description,
+               #  rounds=rounds, players=players, nombre_de_tours=nombre_de_tours)
+        #return len(tournoi['rounds']), tournoi_object
+
+
+# def deserialize_tournoi(tournoi)
+
+#
+
+
+
 
 

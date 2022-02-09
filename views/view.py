@@ -6,6 +6,14 @@ class TournoiView:
         name = input("Entrez le nom du Tournoi: ")
         lieu = input("Entrez le lieu du Tournoi: ")
         date_tournoi = input("Entrez la ou les dates du Tournoi: ")
+        while ValueError:
+            # from datetime import datetime
+            #
+            # my_string = str(input('Enter date(yyyy-mm-dd): '))
+            # my_date = datetime.strptime(my_string, "%Y-%m-%d")
+
+            print("please enter date at this format mm/dd/yyyy")
+            date_tournoi = input("Entrez la ou les dates du Tournoi: ")
         controle_temps = input("Entrez le type de contrôle de temps "
                                "pour ce Tournoi "
                                "(bullet, blitz ou coup rapide): ")
@@ -14,11 +22,11 @@ class TournoiView:
             return None
         return name, lieu, date_tournoi, controle_temps, description
 
-    def prompt_for_tournoi_name(self):
-        name = input("Entrez le nom du Tournoi que vous souhaitez reprendre: ")
-        if not name:
-            return None
-        return name
+    # def prompt_for_tournoi_name(self):
+    #     name = input("Entrez le nom du Tournoi que vous souhaitez reprendre: ")
+    #     if not name:
+    #         return None
+    #     return name
 
     def prompt_for_player(self):
         last_name = input("Entrez le nom de famille du Player: ")
@@ -69,6 +77,10 @@ class TournoiView:
         for player in players:
             print("Player " + player.first_name)
             score = input("Score : ")
+            print("type(score)", type(score))
+            while ValueError or score != 0 or score != 0.5 or score != 1:
+                print("please enter 0, 0.5, or 1")
+                score = input("Score : ")
             ranking.append([player, float(score)])
         sorted_rank = sorted(ranking, key=lambda key_score: key_score[1],
                              reverse=True)
@@ -158,3 +170,5 @@ class TournoiView:
             rank = input("Entrez le classement final : ")
             player.rank = int(rank)
         return players
+
+
