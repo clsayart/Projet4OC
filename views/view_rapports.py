@@ -1,4 +1,7 @@
 from tinydb import TinyDB, Query
+from models.players import Player
+from models.match import Match
+from models.round import Round
 
 # with open("storage/db.json", "w+") as file:
 db = TinyDB('db.json')
@@ -103,23 +106,31 @@ def insert_tournoi(serialized_tournoi):
 
 
 def saving_round(round, serialized_matches):
-    saving = input("Sauvegarder le round ? Entrez 1 pour sauvegarder: ")
+    saving = input("Sauvegarder le round et continuer? Entrez 1 pour sauvegarder, 2 pour arrêter: ")
     if int(saving) == 1:
         serialized_round = serialize_round(round, serialized_matches)
         pass
     else:
-        pass
+        exit()
     return serialized_round
 
 
 def saving_players(players):
     serialized_players = []
     saving = input("Sauvegarder les joueurs? Entrez 1 pour sauvegarder: ")
-    if int(saving) == 1:
-        serialized_players = serialize_player(players)
-        pass
-    else:
-        pass
+    try:
+        if int(saving) == 1:
+            serialized_players = serialize_player(players)
+            pass
+        else:
+            pass
+    except ValueError:
+        saving = input("Entrez 1 pour sauvegarder, s'il vous plait: ")
+        if int(saving) == 1:
+            serialized_players = serialize_player(players)
+            pass
+        else:
+            pass
     return serialized_players
 
 
@@ -297,53 +308,38 @@ class RapportsView:
         for tournoi in tournois:
             if choice == str(tournoi['nom']):
                 print("nom tournoi", tournoi['nom'])
-
-        nom = tournoi['nom']
-        lieu = tournoi['lieu']
-        date_tournoi = tournoi['date_tournoi']
-        controle_temps = tournoi['description']
-        nombre_de_tours = tournoi['nombre_de_tours']
-        controle_temps = tournoi['controle_temps']
-        description= tournoi['description']
-        players = []
-        # for player in tournoi['players']:
-        #     first_name = player['first_name'
-        #          last_name = player['last_name']
-        #
-        #    date_of_birth = player['date_of_birth']
-        #           sex = player['sex']
-        #           rank = player['rank']
-        #player =Player(last_name=last_name, first_name=first_name, date_of_birth=date_of_birth, sex=sex, rank=rank)
-        # players.append(player)
-
-
-        # rounds = []
-        # for round in tournoi['rounds']:
-        # nom = round['nom']
-        #         date= round['date']
-        #         heure_debut = round['heure de debut']
-        #         heure_fin = round['heure de debut']
-        #         matches = []
-        #         for match in round['liste des matchs']:
-        # player1 = match['player 1']
-        # player2 = match['player 2']
-        # score_player1 = match['score player 1']
-        #  score_player2 = match['score player 2']
-        # match = Match(player1=player1, player2=player2, score_player1=score_player1, score_player2n=score_player2)
-        # matches.append(match)
-        #         round = Round(nom=nom, date=date, heure_debut=heure_debut, heure_fin=heure_fin, list_matchs=matches)
-        #  rounds.append(round)
-
-        #tournoi_object = Tournoi(nom=nom, lieu=lieu, date_tournoi=date_tournoi, controle_temps=controle_temps, description=description,
-               #  rounds=rounds, players=players, nombre_de_tours=nombre_de_tours)
-        #return len(tournoi['rounds']), tournoi_object
-
-
-# def deserialize_tournoi(tournoi)
-
-#
-
-
-
-
-
+                nom = tournoi['nom']
+                lieu = tournoi['lieu']
+                date_tournoi = tournoi['date_tournoi']
+                controle_temps = tournoi['description']
+                nombre_de_tours = tournoi['nombre_de_tours']
+                controle_temps = tournoi['controle_temps']
+                description= tournoi['description']
+                players = []
+                for player in tournoi['players']:
+                    first_name = player['first_name']
+                    last_name = player['last_name']
+                    date_of_birth = player['date_of_birth']
+                    sex = player['sex']
+                    rank = player['rank']
+                    player = Player(last_name=last_name, first_name=first_name, date_of_birth=date_of_birth, sex=sex, rank=rank)
+                    players.append(player)
+                    rounds = []
+                    for round in tournoi['rounds']:
+                        nom = round['nom']
+                        date = round['date']
+                        heure_debut = round['heure de debut']
+                        heure_fin = round['heure de debut']
+                        matches = []
+                        for match in round['liste des matchs']:
+                            player1 = match['player 1']
+                            player2 = match['player 2']
+                            score_player1 = match['score player 1']
+                            score_player2 = match['score player 2']
+                            match = Match(player1=player1, player2=player2, score_player1=score_player1, score_player2n=score_player2)
+                            matches.append(match)
+                        round = Round(nom=nom, date=date, heure_debut=heure_debut, heure_fin=heure_fin, list_matchs=matches)
+                        rounds.append(round)
+                tournoi_object = Tournoi(nom=nom, lieu=lieu, date_tournoi=date_tournoi, controle_temps=controle_temps, description=description,
+                                        rounds=rounds, players=players, nombre_de_tours=nombre_de_tours)
+        return len(tournoi['rounds']), tournoi_object

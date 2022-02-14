@@ -50,6 +50,7 @@ class Controller:
         serialized_tournoi = serialize_tournoi_start(tournoi)
         insert_tournoi(serialized_tournoi)
         players = self.get_players()
+        print("players", players)
         serialized_players = saving_players(players)
         # print(serialized_players)
         insert_players(serialized_players)
@@ -78,19 +79,8 @@ class Controller:
                                                serialized_updated_players,
                                                serialized_rounds)
         insert_tournoi(serialized_tournoi)
-
-        # def make_round(ranking, players):
-        #         round = self.generate_rounds()
-        #         matches_of_round = self.view_tournoi.generate_pairs_second_round(ranking)
-        #         serialized_matches_of_round = serialize_match(matches_of_round)
-        #         round.heure_fin = str(datetime.datetime.now())
-        #         round.list_matchs.append(matches)
-        #         serialized_round = saving_round(round, serialized_matches_of_round)
-        #         rounds.append(round)
-        #         serialized_rounds.append(serialized_round)
-        #         ranking_of_round = self.view_tournoi.set_ranking(players)
-        #         return WHAT
-
+        ranking_of_round = self.make_round(ranking, players, tournoi, serialized_rounds)
+        print("ranking_of_round", ranking_of_round)
         # round_2 = self.generate_rounds()
         # matches_second_round = \
         #     self.view_tournoi.generate_pairs_second_round(ranking)
@@ -134,6 +124,28 @@ class Controller:
         # insert_tournoi(serialized_tournoi)
         print("end!")
 
+    def make_round(self, ranking, players, tournoi, serialized_rounds):
+        round = self.generate_rounds()
+        matches_of_round = self.view_tournoi.generate_pairs_second_round(ranking)
+        serialized_matches_of_round = serialize_match(matches_of_round)
+        round.heure_fin = str(datetime.datetime.now())
+        round.list_matchs.append(matches_of_round)
+        serialized_round = saving_round(round, serialized_matches_of_round)
+        #rounds.append(round)
+        serialized_rounds.append(serialized_round)
+        ranking_of_round = self.view_tournoi.set_ranking(players)
+        # UPDATE PLAYERS RANKING
+        updated_players_indef = self.update_players_ranking(players, ranking)
+        serialized_updated_players_indef = saving_players(updated_players_indef)
+        # REMOVE ANCIEN TOURNOI
+        remove_tournoi(tournoi.nom)
+        # INSERT NOUVEAU TOURNOI
+        serialized_tournoi_indef = serialize_tournoi(tournoi,
+                                                     serialized_updated_players_indef,
+                                                     serialized_rounds)
+        insert_tournoi(serialized_tournoi_indef)
+        return ranking_of_round
+
     def players_ranking_updated(self, players, ranking):
         sorted_players = sorted(players,
                                 key=lambda k: k['first_name'])
@@ -151,7 +163,7 @@ class Controller:
     def update_players_ranking(self, players, ranking):
         for player in players:
             for rank in ranking:
-            # find player, then update rank
+                # find player, then update rank
                 if rank[0].first_name == player.first_name:
                     player.rank = rank[1]
         return players
@@ -162,6 +174,8 @@ class Controller:
 
         # fonction round selon nombre de list
         # appeler les bonnes fonctions un certain nombre de fois (1 ou 2 ou 3)
+        for i in range(4 - tournoi_to_continue[0]):
+            print(i)
         # def make_round(ranking, players):
         #         round = self.generate_rounds()
         #         matches_of_round = self.view_tournoi.generate_pairs_second_round(ranking)

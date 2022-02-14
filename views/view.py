@@ -1,26 +1,27 @@
 from models.match import Match
+from datetime import datetime
 
 
 class TournoiView:
     def prompt_for_tournoi(self):
         name = input("Entrez le nom du Tournoi: ")
         lieu = input("Entrez le lieu du Tournoi: ")
-        date_tournoi = input("Entrez la ou les dates du Tournoi: ")
-        while ValueError:
-            # from datetime import datetime
-            #
-            # my_string = str(input('Enter date(yyyy-mm-dd): '))
-            # my_date = datetime.strptime(my_string, "%Y-%m-%d")
+        date_tournoi = str(input('Entrez la ou les dates du Tournoi (format: yyyy-mm-dd): '))
+        date_variable = False
+        while date_variable is False:
+            try:
+                date_tournoi_formatted = datetime.strptime(date_tournoi, "%Y-%m-%d")
+                date_variable = True
+            except ValueError:
+                date_tournoi = str(input('Entrez la date au bon format = yyyy-mm-dd! Date: '))
 
-            print("please enter date at this format mm/dd/yyyy")
-            date_tournoi = input("Entrez la ou les dates du Tournoi: ")
         controle_temps = input("Entrez le type de contrôle de temps "
                                "pour ce Tournoi "
                                "(bullet, blitz ou coup rapide): ")
         description = input("Entrez la description du Tournoi: ")
-        if not (name, lieu, date_tournoi, controle_temps, description):
+        if not (name, lieu, date_tournoi_formatted, controle_temps, description):
             return None
-        return name, lieu, date_tournoi, controle_temps, description
+        return name, lieu, date_tournoi_formatted, controle_temps, description
 
     # def prompt_for_tournoi_name(self):
     #     name = input("Entrez le nom du Tournoi que vous souhaitez reprendre: ")
@@ -65,8 +66,13 @@ class TournoiView:
         matches = list()
         for pair in pairs:
             print("Match " + pair[0].first_name + " " + pair[1].first_name)
+
             score_player1 = input("Score P1: ")
+            while score_player1 not in ['0', '0.5', '1']:
+                score_player1 = input("Please enter 0, 0.5, or 1! Score : ")
             score_player2 = input("Score P2: ")
+            while score_player2 not in ['0', '0.5', '1']:
+                score_player2 = input("Please enter 0, 0.5, or 1! Score : ")
             match = Match(pair[0], pair[1], score_player1, score_player2)
             matches.append(match)
         return matches
@@ -77,11 +83,15 @@ class TournoiView:
         for player in players:
             print("Player " + player.first_name)
             score = input("Score : ")
-            print("type(score)", type(score))
-            while ValueError or score != 0 or score != 0.5 or score != 1:
-                print("please enter 0, 0.5, or 1")
-                score = input("Score : ")
+            test_variable = False
+            while test_variable is False:
+                try:
+                    score = float(score)
+                    test_variable = True
+                except ValueError:
+                    score = input("Please enter a number! Score : ")
             ranking.append([player, float(score)])
+
         sorted_rank = sorted(ranking, key=lambda key_score: key_score[1],
                              reverse=True)
         print("Classement des joueurs :")
@@ -170,5 +180,3 @@ class TournoiView:
             rank = input("Entrez le classement final : ")
             player.rank = int(rank)
         return players
-
-
