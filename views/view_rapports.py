@@ -311,11 +311,10 @@ class RapportsView:
                 nom = tournoi['nom']
                 lieu = tournoi['lieu']
                 date_tournoi = tournoi['date_tournoi']
-                controle_temps = tournoi['description']
                 nombre_de_tours = tournoi['nombre_de_tours']
                 controle_temps = tournoi['controle_temps']
-                description= tournoi['description']
-                players = []
+                description = tournoi['description']
+                players_continued = []
                 for player in tournoi['players']:
                     first_name = player['first_name']
                     last_name = player['last_name']
@@ -323,7 +322,7 @@ class RapportsView:
                     sex = player['sex']
                     rank = player['rank']
                     player = Player(last_name=last_name, first_name=first_name, date_of_birth=date_of_birth, sex=sex, rank=rank)
-                    players.append(player)
+                    players_continued.append(player)
                     rounds = []
                     for round in tournoi['rounds']:
                         nom = round['nom']
@@ -338,8 +337,8 @@ class RapportsView:
                             score_player2 = match['score player 2']
                             match = Match(player1=player1, player2=player2, score_player1=score_player1, score_player2n=score_player2)
                             matches.append(match)
-                        round = Round(nom=nom, date=date, heure_debut=heure_debut, heure_fin=heure_fin, list_matchs=matches)
-                        rounds.append(round)
+                        round_continued = Round(nom=nom, date=date, heure_debut=heure_debut, heure_fin=heure_fin, list_matchs=matches)
+                        rounds.append(round_continued)
                 tournoi_object = Tournoi(nom=nom, lieu=lieu, date_tournoi=date_tournoi, controle_temps=controle_temps, description=description,
                                         rounds=rounds, players=players, nombre_de_tours=nombre_de_tours)
         return len(tournoi['rounds']), tournoi_object
