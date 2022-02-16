@@ -138,11 +138,22 @@ class Controller:
     def continue_tournoi(self):
         tournoi_to_continue = self.rapports_tournoi.find_tournoi_to_continue()
         print("tournoi_to_continue_len", tournoi_to_continue)
-        #d'abord round1 ???
+        print("tournoi_to_continue_rounds", tournoi_to_continue.rounds)
+        print("tournoi_to_continue_rounds.len", len(tournoi_to_continue.rounds))
+        print("tournoi_to_continue_rounds.type", type(len(tournoi_to_continue.rounds)))
+        for i in range(1, len(tournoi_to_continue.rounds)):
+            print(i)
+            print("tournoi round", tournoi_to_continue.rounds[i])
+            print("tournoi rounds matches", tournoi_to_continue.rounds[i].list_matchs)
+            # players = tournoi.players
+            # serialized_round = saving_round(tournoi_to_continue.rounds[i], serialized_matches_of_round)
+            # ranking_of_round = self.ranking
+            # "ranking_of_round_"+i = self.make_round(ranking_of_round, players, tournoi_to_continue, serialized_rounds_i)
+        print("i am here")
+            #tournoi = tournoi_to_continue
+        # d'abord round1 ??? if len() < 1 puis for i in 3 else for i in len
         # result_round = self.generate_rounds()
-
-        # players = tournoi.players
-
+        # players = tournoi.players?
         # matches = self.view_tournoi.generate_pairs_first_round(players)
         # serialized_matches_round_1 = serialize_match(matches)
         # ranking_of_round_1 = self.view_tournoi.set_ranking(players)
@@ -155,17 +166,7 @@ class Controller:
         #                                     serialized_matches_round_1)
         # rounds.append(result_round)
         # serialized_rounds.append(serialized_round_one)
-        for i in range(1 - tournoi_to_continue[0]):
-            print(i)
-            print("tournoi object", tournoi_to_continue[1])
-            print("tournoi rounds matches", tournoi_to_continue.round[i].matches)
-            print("tournoi round", tournoi_to_continue.rounds[i])
-            #tournoi = tournoi_to_continue[1]
-            #players = tournoi.players
-            #serialized_matches_of_round = serialize_match(tournoi_to_continue.round[i].matches???)
-            #serialized_rounds = tournoi.rounds
-            #serialized_round = saving_round(tournoi_to_continue.rounds[i], serialized_matches_of_round)
-            #"ranking_of_round_"+i = self.make_round(ranking_of_round_2, players, tournoi, serialized_rounds)
+
 
 
 # PUIS REMETTRE CA ou équivalent ou rien??

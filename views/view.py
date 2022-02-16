@@ -19,9 +19,9 @@ class TournoiView:
                                "pour ce Tournoi "
                                "(bullet, blitz ou coup rapide): ")
         description = input("Entrez la description du Tournoi: ")
-        if not (name, lieu, date_tournoi_formatted, controle_temps, description):
+        if not (name, lieu, str(date_tournoi_formatted), controle_temps, description):
             return None
-        return name, lieu, date_tournoi_formatted, controle_temps, description
+        return name, lieu, str(date_tournoi_formatted), controle_temps, description
 
     # def prompt_for_tournoi_name(self):
     #     name = input("Entrez le nom du Tournoi que vous souhaitez reprendre: ")

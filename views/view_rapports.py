@@ -2,6 +2,7 @@ from tinydb import TinyDB, Query
 from models.players import Player
 from models.match import Match
 from models.round import Round
+from models.tournoi import Tournoi
 
 # with open("storage/db.json", "w+") as file:
 db = TinyDB('db.json')
@@ -11,7 +12,7 @@ tournois_table = db.table('tournois')
 tournois = tournois_table.all()
 # rounds_table = db.table('rounds')
 # matches_table = db.table('matches')
-Tournoi = Query()
+# Tournoi_query = Query()
 
 
 def serialize_player(players):
@@ -325,7 +326,7 @@ class RapportsView:
                     players_continued.append(player)
                     rounds = []
                     for round in tournoi['rounds']:
-                        nom = round['nom']
+                        nom = round['nom du round']
                         date = round['date']
                         heure_debut = round['heure de debut']
                         heure_fin = round['heure de debut']
@@ -335,10 +336,10 @@ class RapportsView:
                             player2 = match['player 2']
                             score_player1 = match['score player 1']
                             score_player2 = match['score player 2']
-                            match = Match(player1=player1, player2=player2, score_player1=score_player1, score_player2n=score_player2)
+                            match = Match(player1=player1, player2=player2, score_player1=score_player1, score_player2=score_player2)
                             matches.append(match)
                         round_continued = Round(nom=nom, date=date, heure_debut=heure_debut, heure_fin=heure_fin, list_matchs=matches)
                         rounds.append(round_continued)
-                tournoi_object = Tournoi(nom=nom, lieu=lieu, date_tournoi=date_tournoi, controle_temps=controle_temps, description=description,
-                                        rounds=rounds, players=players, nombre_de_tours=nombre_de_tours)
-        return len(tournoi['rounds']), tournoi_object
+                tournoi_object = Tournoi(nom, lieu, date_tournoi, controle_temps, description,
+                                        rounds, players, nombre_de_tours)
+        return tournoi_object
