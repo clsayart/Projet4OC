@@ -10,8 +10,6 @@ players_table = db.table('players')
 players = players_table.all()
 tournois_table = db.table('tournois')
 tournois = tournois_table.all()
-# rounds_table = db.table('rounds')
-# matches_table = db.table('matches')
 Tournoi_query = Query()
 
 
@@ -26,7 +24,6 @@ def serialize_player(players):
             'rank': player.rank
         }
         serialized_players.append(serialized_player)
-    # print("players tiny db", serialized_players)
     return serialized_players
 
 
@@ -83,13 +80,8 @@ def serialize_tournoi_start(tournoi):
 
 
 def insert_players(serialized_players):
-    # players_table = db.table('players')
-    # players_table.truncate()  # clear the table first
     players_table.insert_multiple(serialized_players)
 
-
-# def insert_rounds(serialized_round):
-#     rounds_table.insert(serialized_round)
 
 def remove_tournoi(tournoi_name):
     print("tournoi_name", tournoi_name)
@@ -97,13 +89,7 @@ def remove_tournoi(tournoi_name):
 
 
 def insert_tournoi(serialized_tournoi):
-    # tournois_table.truncate()  # ?
     tournois_table.insert(serialized_tournoi)
-
-
-# def insert_matches(serialized_matches):
-#     # tournois_table.truncate()  # ?
-#     matches_table.insert_multiple(serialized_matches)
 
 
 def saving_round(round, serialized_matches):
@@ -121,6 +107,8 @@ def saving_round(round, serialized_matches):
 def saving_players(players):
     serialized_players = []
     saving = input("Sauvegarder les joueurs? Entrez 1 pour sauvegarder: ")
+    while saving not in ['1']:
+        saving = input("Entrez 1 pour sauvegarder: ")
     try:
         if int(saving) == 1:
             serialized_players = serialize_player(players)
@@ -316,7 +304,6 @@ class RapportsView:
         choice = input("Entrez le nom du tournoi que vous souhaitez reprendre: ")
         for tournoi in tournois:
             if choice == str(tournoi['nom']):
-                print("nom tournoi", tournoi['nom'])
                 nom = tournoi['nom']
                 lieu = tournoi['lieu']
                 date_tournoi = tournoi['date_tournoi']
@@ -349,6 +336,6 @@ class RapportsView:
                             matches_continued.append(match)
                         round_continued = Round(nom, date, heure_debut, heure_fin, matches_continued)
                         rounds_continued.append(round_continued)
-                        print("rounds", rounds_continued)
-                tournoi_object = Tournoi(nom, lieu, date_tournoi, controle_temps, description, rounds_continued, players, nombre_de_tours)
+                tournoi_object = Tournoi(nom, lieu, date_tournoi, controle_temps, description, rounds_continued,
+                                         players_continued, nombre_de_tours)
         return tournoi_object
