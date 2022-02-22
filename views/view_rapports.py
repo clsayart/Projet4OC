@@ -12,7 +12,7 @@ tournois_table = db.table('tournois')
 tournois = tournois_table.all()
 # rounds_table = db.table('rounds')
 # matches_table = db.table('matches')
-# Tournoi_query = Query()
+Tournoi_query = Query()
 
 
 def serialize_player(players):
@@ -93,7 +93,7 @@ def insert_players(serialized_players):
 
 def remove_tournoi(tournoi_name):
     print("tournoi_name", tournoi_name)
-    tournois_table.remove(Tournoi.nom == tournoi_name)
+    tournois_table.remove(Tournoi_query.nom == tournoi_name)
 
 
 def insert_tournoi(serialized_tournoi):
@@ -108,6 +108,8 @@ def insert_tournoi(serialized_tournoi):
 
 def saving_round(round, serialized_matches):
     saving = input("Sauvegarder le round et continuer? Entrez 1 pour sauvegarder, 2 pour arrêter: ")
+    while saving not in ['1', '2']:
+        saving = input("Please enter 1 or 2! Choice : ")
     if int(saving) == 1:
         serialized_round = serialize_round(round, serialized_matches)
         pass
@@ -145,6 +147,8 @@ class RapportsView:
         print("4. Liste de tous les rounds d'un tournoi - Entrez 4")
         print("5. Liste de tous les matchs d'un tournoi - Entrez 5")
         choice_rapports = input("votre choix: ")
+        while choice_rapports not in ['1', '2', '3', '4', '5']:
+            choice_rapports = input("Please enter 1, 2, 3, 4 or 5! Choice : ")
         if int(choice_rapports) == 1:
             self.all_players()
         elif int(choice_rapports) == 2:
@@ -163,6 +167,8 @@ class RapportsView:
         print("1. Par classement\n")
         print("2. Par ordre alphabétique\n")
         choice = input("Votre choix : ")
+        while choice not in ['1', '2']:
+            choice = input("Please enter 1 or 2! Choice : ")
 
         if int(choice) == 1:
             sorted_players = sorted(players,
@@ -192,6 +198,8 @@ class RapportsView:
         print("1. Par classement\n")
         print("2. Par ordre alphabétique\n")
         second_choice = input("Votre choix : ")
+        while second_choice not in ['1', '2']:
+            second_choice = input("Please enter 1 or 2! Choice : ")
 
         for tournoi in tournois:
             if choice == str(tournoi['nom']):
@@ -316,30 +324,31 @@ class RapportsView:
                 controle_temps = tournoi['controle_temps']
                 description = tournoi['description']
                 players_continued = []
+                rounds_continued = []
+                matches_continued = []
                 for player in tournoi['players']:
                     first_name = player['first_name']
                     last_name = player['last_name']
                     date_of_birth = player['date_of_birth']
                     sex = player['sex']
                     rank = player['rank']
-                    player = Player(last_name=last_name, first_name=first_name, date_of_birth=date_of_birth, sex=sex, rank=rank)
+                    player = Player(last_name, first_name, date_of_birth, sex, rank)
                     players_continued.append(player)
-                    rounds = []
                     for round in tournoi['rounds']:
                         nom = round['nom du round']
                         date = round['date']
                         heure_debut = round['heure de debut']
                         heure_fin = round['heure de debut']
-                        matches = []
+
                         for match in round['liste des matchs']:
                             player1 = match['player 1']
                             player2 = match['player 2']
                             score_player1 = match['score player 1']
                             score_player2 = match['score player 2']
-                            match = Match(player1=player1, player2=player2, score_player1=score_player1, score_player2=score_player2)
-                            matches.append(match)
-                        round_continued = Round(nom=nom, date=date, heure_debut=heure_debut, heure_fin=heure_fin, list_matchs=matches)
-                        rounds.append(round_continued)
-                tournoi_object = Tournoi(nom, lieu, date_tournoi, controle_temps, description,
-                                        rounds, players, nombre_de_tours)
+                            match = Match(player1, player2, score_player1, score_player2)
+                            matches_continued.append(match)
+                        round_continued = Round(nom, date, heure_debut, heure_fin, matches_continued)
+                        rounds_continued.append(round_continued)
+                        print("rounds", rounds_continued)
+                tournoi_object = Tournoi(nom, lieu, date_tournoi, controle_temps, description, rounds_continued, players, nombre_de_tours)
         return tournoi_object

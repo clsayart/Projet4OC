@@ -4,8 +4,14 @@ from datetime import datetime
 
 class TournoiView:
     def prompt_for_tournoi(self):
-        name = input("Entrez le nom du Tournoi: ")
-        lieu = input("Entrez le lieu du Tournoi: ")
+        try:
+            name = input("Entrez le nom du Tournoi: ")
+        except ValueError:
+            name = input("Entrez le nom du Tournoi: ")
+        try:
+            lieu = input("Entrez le lieu du Tournoi: ")
+        except ValueError:
+            lieu = input("Entrez le lieu du Tournoi: ")
         date_tournoi = str(input('Entrez la ou les dates du Tournoi (format: yyyy-mm-dd): '))
         date_variable = False
         while date_variable is False:
@@ -14,29 +20,40 @@ class TournoiView:
                 date_variable = True
             except ValueError:
                 date_tournoi = str(input('Entrez la date au bon format = yyyy-mm-dd! Date: '))
-
         controle_temps = input("Entrez le type de contrôle de temps "
                                "pour ce Tournoi "
                                "(bullet, blitz ou coup rapide): ")
+        while controle_temps not in ['bullet', 'blitz', 'coup rapide']:
+            controle_temps = input("Entrez le bon type de contrôle de temps: bullet, blitz ou coup rapide: ")
         description = input("Entrez la description du Tournoi: ")
         if not (name, lieu, str(date_tournoi_formatted), controle_temps, description):
             return None
         return name, lieu, str(date_tournoi_formatted), controle_temps, description
 
-    # def prompt_for_tournoi_name(self):
-    #     name = input("Entrez le nom du Tournoi que vous souhaitez reprendre: ")
-    #     if not name:
-    #         return None
-    #     return name
-
     def prompt_for_player(self):
-        last_name = input("Entrez le nom de famille du Player: ")
-        first_name = input("Entrez le prénom du Player: ")
-        date_of_birth = input("Entrez la date de naissance du Player: ")
+        try:
+            last_name = input("Entrez le nom de famille du Player: ")
+        except ValueError:
+            last_name = input("Entrez le nom de famille du Player: ")
+        try:
+            first_name = input("Entrez le prénom du Player: ")
+        except ValueError:
+            first_name = input("Entrez le prénom du Player: ")
+        date_of_birth = input("Entrez la date de naissance du Player (format: yyyy-mm-dd): ")
+        dateOB_variable = False
+        while dateOB_variable is False:
+            try:
+                date_of_birth_formatted = datetime.strptime(date_of_birth, "%Y-%m-%d")
+                dateOB_variable = True
+            except ValueError:
+                date_of_birth = str(input('Entrez la date au bon format = yyyy-mm-dd! Date: '))
+
         sex = input("Entrez le sexe du Player: ")
-        if not (last_name, first_name, date_of_birth, sex):
+        while sex not in ['F', 'M']:
+            sex = input("Entrez F ou M pour le sexe du Player: ")
+        if not (last_name, first_name, str(date_of_birth_formatted), sex):
             return None
-        return last_name, first_name, date_of_birth, sex
+        return last_name, first_name, str(date_of_birth_formatted), sex
 
     def menu(self):
         print("----------Tournoi---------\n")
@@ -44,6 +61,8 @@ class TournoiView:
         print("2. Voir Rapports - Entrez 2")
         print("3. Continuer précédent Tournoi - Entrez 3")
         choice = input("please enter your choice: ")
+        while choice not in ['1', '2', '3']:
+            choice = input("Please enter 1, 2, or 3! Choice : ")
         return choice
 
     def prompt_for_round(self):
@@ -165,6 +184,8 @@ class TournoiView:
     def end_tournoi(self, tournoi, players):
         print("Terminer ?\n1. Terminer\n2.Modifier classement joueurs")
         text = input("Votre choix : ")
+        while text not in ['1', '2']:
+            text = input("Please enter 1 or 2! Choice : ")
         if int(text) == 1:
             print("Tournoi Terminé")
             pass
@@ -178,5 +199,12 @@ class TournoiView:
         for player in players:
             print("Joueur " + player.first_name)
             rank = input("Entrez le classement final : ")
+            test_variable_rank = False
+            while test_variable_rank is False:
+                try:
+                    rank = float(rank)
+                    test_variable_rank = True
+                except ValueError:
+                    rank = input("Please enter a number! Score : ")
             player.rank = int(rank)
         return players
