@@ -40,6 +40,19 @@ def serialize_match(matches):
     return serialized_matches
 
 
+def serialize_match_continued(matches):
+    serialized_matches = []
+    for match in matches:
+        serialized_match = {
+            "player 1": match.player1,
+            "player 2": match.player2,
+            "score player 1": match.score_player1,
+            "score player 2": match.score_player2
+        }
+        serialized_matches.append(serialized_match)
+    return serialized_matches
+
+
 def serialize_round(round, serialized_matches):
     serialized_round = {
         "nom du round": round.nom,
@@ -84,7 +97,6 @@ def insert_players(serialized_players):
 
 
 def remove_tournoi(tournoi_name):
-    print("tournoi_name", tournoi_name)
     tournois_table.remove(Tournoi_query.nom == tournoi_name)
 
 
@@ -101,6 +113,11 @@ def saving_round(round, serialized_matches):
         pass
     else:
         exit()
+    return serialized_round
+
+
+def saving_round_continued(round, serialized_matches):
+    serialized_round = serialize_round(round, serialized_matches)
     return serialized_round
 
 
@@ -321,21 +338,21 @@ class RapportsView:
                     rank = player['rank']
                     player = Player(last_name, first_name, date_of_birth, sex, rank)
                     players_continued.append(player)
-                    for round in tournoi['rounds']:
-                        nom = round['nom du round']
-                        date = round['date']
-                        heure_debut = round['heure de debut']
-                        heure_fin = round['heure de debut']
-
-                        for match in round['liste des matchs']:
-                            player1 = match['player 1']
-                            player2 = match['player 2']
-                            score_player1 = match['score player 1']
-                            score_player2 = match['score player 2']
-                            match = Match(player1, player2, score_player1, score_player2)
-                            matches_continued.append(match)
-                        round_continued = Round(nom, date, heure_debut, heure_fin, matches_continued)
-                        rounds_continued.append(round_continued)
+                for round in tournoi['rounds']:
+                    nom_round = round['nom du round']
+                    date = round['date']
+                    heure_debut = round['heure de debut']
+                    heure_fin = round['heure de debut']
+                    for match in round['liste des matchs']:
+                        player1 = match['player 1']
+                        player2 = match['player 2']
+                        score_player1 = match['score player 1']
+                        score_player2 = match['score player 2']
+                        match = Match(player1, player2, score_player1, score_player2)
+                        matches_continued.append(match)
+                    round_continued = Round(nom_round, date, heure_debut, heure_fin, matches_continued)
+                    rounds_continued.append(round_continued)
                 tournoi_object = Tournoi(nom, lieu, date_tournoi, controle_temps, description, rounds_continued,
                                          players_continued, nombre_de_tours)
+                print(tournoi_object)
         return tournoi_object
