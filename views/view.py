@@ -12,23 +12,34 @@ class TournoiView:
             lieu = input("Entrez le lieu du Tournoi: ")
         except ValueError:
             lieu = input("Entrez le lieu du Tournoi: ")
-        date_tournoi = str(input('Entrez la ou les dates du Tournoi (format: yyyy-mm-dd): '))
+        date_tournoi = \
+            str(input('Entrez la date du Tournoi (format: yyyy-mm-dd): '))
         date_variable = False
         while date_variable is False:
             try:
-                date_tournoi_formatted = datetime.strptime(date_tournoi, "%Y-%m-%d")
+                date_tournoi_formatted = \
+                    datetime.strptime(date_tournoi, "%Y-%m-%d")
                 date_variable = True
             except ValueError:
-                date_tournoi = str(input('Entrez la date au bon format = yyyy-mm-dd! Date: '))
-        controle_temps = input("Entrez le type de contrôle de temps "
-                               "pour ce Tournoi "
-                               "(bullet, blitz ou coup rapide): ")
+                date_tournoi = \
+                    str(input('Entrez la date au format = yyyy-mm-dd! Date: '))
+        controle_temps = \
+            input("Entrez le type de contrôle de temps "
+                  "pour ce Tournoi "
+                  "(bullet, blitz ou coup rapide): ")
         while controle_temps not in ['bullet', 'blitz', 'coup rapide']:
-            controle_temps = input("Entrez le bon type de contrôle de temps: bullet, blitz ou coup rapide: ")
+            controle_temps = \
+                input("Entrez le bon type de contrôle de temps: "
+                      "bullet, blitz ou coup rapide: ")
         description = input("Entrez la description du Tournoi: ")
-        if not (name, lieu, str(date_tournoi_formatted), controle_temps, description):
+        if not (name, lieu,
+                str(date_tournoi_formatted),
+                controle_temps, description):
             return None
-        return name, lieu, str(date_tournoi_formatted), controle_temps, description
+        return \
+            name, lieu, \
+            str(date_tournoi_formatted), \
+            controle_temps, description
 
     def prompt_for_player(self):
         try:
@@ -39,14 +50,19 @@ class TournoiView:
             first_name = input("Entrez le prénom du Player: ")
         except ValueError:
             first_name = input("Entrez le prénom du Player: ")
-        date_of_birth = input("Entrez la date de naissance du Player (format: yyyy-mm-dd): ")
+        date_of_birth = \
+            input("Entrez la date de naissance "
+                  "du Player (format: yyyy-mm-dd): ")
         dateOB_variable = False
         while dateOB_variable is False:
             try:
-                date_of_birth_formatted = datetime.strptime(date_of_birth, "%Y-%m-%d")
+                date_of_birth_formatted = \
+                    datetime.strptime(date_of_birth, "%Y-%m-%d")
                 dateOB_variable = True
             except ValueError:
-                date_of_birth = str(input('Entrez la date au bon format = yyyy-mm-dd! Date: '))
+                date_of_birth = \
+                    str(input('Entrez la date au bon format = '
+                              'yyyy-mm-dd! Date: '))
 
         sex = input("Entrez le sexe du Player: ")
         while sex not in ['F', 'M']:

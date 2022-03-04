@@ -105,7 +105,9 @@ def insert_tournoi(serialized_tournoi):
 
 
 def saving_round(round, serialized_matches):
-    saving = input("Sauvegarder le round et continuer? Entrez 1 pour sauvegarder, 2 pour arrêter: ")
+    saving = \
+        input("Sauvegarder le round et continuer? "
+              "Entrez 1 pour sauvegarder, 2 pour arrêter: ")
     while saving not in ['1', '2']:
         saving = input("Please enter 1 or 2! Choice : ")
     if int(saving) == 1:
@@ -220,9 +222,9 @@ class RapportsView:
                               'Sexe : ' + str(player['sex']) + '\n' +
                               'Rank : ' + str(player['rank']) + '\n')
                 elif int(second_choice) == 2:
-                    sorted_players_here = sorted(tournoi['players'],
-                                                 key=lambda
-                                                     key: key['first_name'])
+                    sorted_players_here = \
+                        sorted(tournoi['players'],
+                               key=lambda key: key['first_name'])
                     for player in sorted_players_here:
                         print('Prenom : ' + str(player['first_name']) + '\n' +
                               'Nom de Famille : ' +
@@ -318,7 +320,8 @@ class RapportsView:
                         match_index += 1
 
     def find_tournoi_to_continue(self):
-        choice = input("Entrez le nom du tournoi que vous souhaitez reprendre: ")
+        choice = \
+            input("Entrez le nom du tournoi à reprendre: ")
         for tournoi in tournois:
             if choice == str(tournoi['nom']):
                 nom = tournoi['nom']
@@ -336,7 +339,10 @@ class RapportsView:
                     date_of_birth = player['date_of_birth']
                     sex = player['sex']
                     rank = player['rank']
-                    player = Player(last_name, first_name, date_of_birth, sex, rank)
+                    player = Player(last_name,
+                                    first_name,
+                                    date_of_birth,
+                                    sex, rank)
                     players_continued.append(player)
                 for round in tournoi['rounds']:
                     nom_round = round['nom du round']
@@ -348,11 +354,22 @@ class RapportsView:
                         player2 = match['player 2']
                         score_player1 = match['score player 1']
                         score_player2 = match['score player 2']
-                        match = Match(player1, player2, score_player1, score_player2)
+                        match = Match(player1,
+                                      player2,
+                                      score_player1,
+                                      score_player2)
                         matches_continued.append(match)
-                    round_continued = Round(nom_round, date, heure_debut, heure_fin, matches_continued)
+                    round_continued = Round(nom_round,
+                                            date,
+                                            heure_debut,
+                                            heure_fin,
+                                            matches_continued)
                     rounds_continued.append(round_continued)
-                tournoi_object = Tournoi(nom, lieu, date_tournoi, controle_temps, description, rounds_continued,
-                                         players_continued, nombre_de_tours)
+                tournoi_object = Tournoi(nom, lieu, date_tournoi,
+                                         controle_temps,
+                                         description,
+                                         rounds_continued,
+                                         players_continued,
+                                         nombre_de_tours)
                 print(tournoi_object)
         return tournoi_object
